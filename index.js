@@ -19,7 +19,8 @@ app.get('/', function(req, res) {
 app.get('/file-names', function(req, res) {
     fs.readdir(dir, function(err, files) {
         if (err) {
-            next();
+            console.log('ERROR', err);
+            return;
         }
 
         res.send(files);
