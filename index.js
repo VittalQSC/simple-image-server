@@ -8,10 +8,6 @@ const dir = path.join(__dirname, 'public');
 
 app.use(express.static(dir));
 
-app.get('/test-image-service', function(req, res) {
-    res.send('test-image-service');
-});
-
 app.get('/', function(req, res) {
     res.send('Hello World');
 });
