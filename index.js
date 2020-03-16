@@ -42,7 +42,7 @@ app.get('/file-names', function(req, res) {
             console.log('ERROE', err);
             return;
         };
-        res.send(results.map(result => result.replace(dir, '')));
+        res.send(results.map(result => result.replace(dir, '').split('\\').join('/').slice(1)));
     });
 });
 
