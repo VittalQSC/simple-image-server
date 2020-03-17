@@ -30,10 +30,11 @@ var walk = function(dir, done) {
     });
   };
 
+// this requests disabling nginx caching
 app.use(express.static(dir));
 
+// this requests support nginx caching
 app.get('/:size/:fileName', function(req, res) {
-    console.log(dir + '/' + req.params.size + '/' + req.params.fileName + '.jpg');
     res.set('Cache-Control', 'public, max-age=31557600'); // enable caching
     res.sendFile(dir + '/' + req.params.size + '/' + req.params.fileName + '.jpg');
 });
@@ -44,7 +45,15 @@ app.get('/file-names', function(req, res) {
             console.log('ERROE', err);
             return;
         };
-        res.send(results.map(result => result.replace(dir, '').split('\\').join('/').slice(1)));
+        res.send(
+            results.map(
+                result => result.replace(dir, '')
+                    .split('\\').join('/')
+                    .slice(1)
+                    .replace('.jpg', '')
+                    .replace('.png', '')
+           )
+        );
     });
 });
 
