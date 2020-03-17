@@ -32,8 +32,10 @@ var walk = function(dir, done) {
 
 app.use(express.static(dir));
 
-app.get('/', function(req, res) {
-    res.send('Hello World');
+app.get('/:size/:fileName', function(req, res) {
+    console.log(dir + '/' + req.params.size + '/' + req.params.fileName + '.jpg');
+    res.set('Cache-Control', 'public, max-age=31557600'); // enable caching
+    res.sendFile(dir + '/' + req.params.size + '/' + req.params.fileName + '.jpg');
 });
 
 app.get('/file-names', function(req, res) {
